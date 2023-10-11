@@ -3,12 +3,16 @@ package com.example.introduccion;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.introduccion.Database.DatabaseAux;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,5 +41,38 @@ public class MainActivity extends AppCompatActivity {
     public void changetoInser(View view){
         Intent nIntent = new Intent(MainActivity.this, Principal.class);
         startActivity(nIntent);
+    }
+    public void changetoShow(View view){
+        Intent nIntent = new Intent(MainActivity.this, Show.class);
+        startActivity(nIntent);
+    }
+    public void insertValue(View v){
+       TextView nameTextView = findViewById(R.id.textoCorreo);
+        TextView emailTextView = findViewById(R.id.textoContra);
+
+        String nameString = nameTextView.getText().toString();
+        String emailString = emailTextView.getText().toString();
+
+        DatabaseAux aux = new DatabaseAux(MainActivity.this);
+        SQLiteDatabase db= aux.getWritableDatabase();
+
+    if(db!= null && !nameString.isEmpty() && !emailString.isEmpty()){
+
+        ContentValues values= new ContentValues();
+        values.put("name",nameString);
+        values.put("email",emailString);
+        long res= db.insert("user", null,values);
+        if(res>=0){
+            Toast.makeText(this,"Insertado correctamente", Toast.LENGTH_SHORT).show();
+            nameTextView.setText("");
+            emailTextView.setText("");
+
+        }else{
+            Toast.makeText(this,"Error al introducir los datos", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+
     }
 }

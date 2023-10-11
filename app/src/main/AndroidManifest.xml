@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:targetApi="31">
-
+        <activity
+            android:name=".Show"
+            android:exported="false" />
         <activity
             android:name=".Principal"
             android:exported="false" />
