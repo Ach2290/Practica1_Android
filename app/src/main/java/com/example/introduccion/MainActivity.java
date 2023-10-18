@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         ContentValues values= new ContentValues();
         values.put("name",nameString);
         values.put("email",emailString);
-        long res= db.insert("user", null,values);
+        long res= db.insert("users", null,values);
         if(res>=0){
             Toast.makeText(this,"Insertado correctamente", Toast.LENGTH_SHORT).show();
             nameTextView.setText("");
